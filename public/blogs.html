@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitness Blogs</title>
+  <style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  padding-top: 80px;
+}
+/* Blog Section */
+.blog-section {
+  max-width: 1300px;
+  margin: 60px auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  padding: 0 20px;
+}
+
+/* Individual Blog Card */
+.blog {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid #d4edda;
+}
+
+.blog:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3);
+}
+
+/* Blog Image */
+.blog img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 2px solid #2ecc71;
+}
+
+/* Blog Text */
+.blog-content {
+  padding: 18px;
+}
+
+.blog-content h3 {
+  margin: 0 0 10px;
+  color: #27ae60;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.blog-content a {
+  text-decoration: none;
+}
+
+.blog-content p {
+  color: #444;
+  font-size: 0.9em;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .blog-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .blog-section {
+    grid-template-columns: 1fr;
+    padding: 0 10px;
+  }
+}
+
+  </style>
+</head>
+<body>
+ <div id="header"></div>
+  <section class="blog-section">
+    <!-- Row 1 -->
+    <div class="blog">
+      <img src="img/img1.jpg" alt="Workout Motivation">
+      <div class="blog-content">
+        <a href="https://www.healthline.com/health/exercise-fitness/working-out-in-the-morning" target="_blank"><h3>13 Benefits of Working Out in the Morning</h3></a>
+        <p>Discover how exercising early can boost your focus and metabolism throughout the day.</p>
+      </div>
+    </div>
+
+    <div class="blog">
+      <img src="img/img2.jpg" alt="Healthy Eating">
+      <div class="blog-content">
+        <a href="https://thegirlonbloor.com/meal-prep-busy-people" target="_blank"><h3>Meal Prep Ideas for Busy People</h3></a>
+        <p>Quick and healthy recipes you can prepare in advance to stay consistent with your goals.</p>
+      </div>
+    </div>
+
+    <div class="blog">
+      <img src="img/img3.jpg" alt="Yoga">
+      <div class="blog-content">
+       <a href="https://www.calm.com/blog/yoga-for-relaxation"><h3>5 simple, stress-relieving poses</h3></a> 
+        <p>Reduce stress and anxiety with simple yoga poses you can do anywhere.</p>
+      </div>
+    </div>
+
+    <div class="blog">
+      <img src="img/img4.jpg" alt="Strength Training">
+      <div class="blog-content">
+        <a href="https://www.health.harvard.edu/staying-healthy/strength-training-builds-more-than-muscles" target="_blank"><h3>
+Strength training builds more than muscles</h3></a>
+        <p>Building muscle isn’t just physical — it’s a powerful confidence booster too.</p>
+      </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="blog">
+      <img src="img/img5.jpg" alt="Sleep">
+     <div class="blog-content">
+        <a href="https://wellbeing.jhu.edu/blog/2020/08/11/workout-recovery-sleep-nutrition-movement-planning" target="_blank"><h3>Workout recovery: Sleep, eat, move, plan</h3></a>
+        <p>Learn how proper rest maximizes your strength and endurance gains.</p>
+      </div>
+    </div>
+
+    <div class="blog">
+      <img src="img/img6.jpg" alt="Hydration">
+      <div class="blog-content">
+       <a href="https://www.trainwell.net/blog/hydration-in-fitness" target="_blank"> <h3>Hydration & Fitness</h3></a>
+        <p>Hydration tips to improve your performance and recovery after intense training.</p>
+      </div>
+    </div>
+
+    <div class="blog">
+      <img src="img/img7.jpg" alt="Cardio">
+      <div class="blog-content">
+        <a href="https://www.rwjbh.org/blog/2023/january/the-great-debate-cardio-vs-strength-training" target="_blank"><h3>Cardio vs Strength: What’s Better?</h3></a>
+        <p>Understand the differences and how to balance both for overall fitness.</p>
+      </div>
+    </div>
+
+    <div class="blog">
+      <img src="img/img8.jpg" alt="Stretching">
+      <div class="blog-content">
+       <a href="https://www.firststateortho.com/blog/stretching-reduces-the-risk-of-injury" target="_blank"><h3>Stretching: The Key to Injury Prevention</h3></a> 
+        <p>Simple stretches you should never skip before or after your workouts.</p>
+      </div>
+    </div>
+
+    <!-- Row 3 -->
+    <div class="blog">
+      <img src="img/img9.jpg" alt="Motivation">
+      <div class="blog-content">
+        <a href="https://medium.com/%40emijones/how-to-stay-motivated-on-your-fitness-journey-9e2439d52a46" target="_blank"><h3>How to Stay Motivated to Workout</h3></a>
+        <p>Learn mindset tricks that help you stay consistent even on lazy days.</p>
+      </div>
+    </div>
+
+    <div class="blog">
+      <img src="img/img10.jpg" alt="Protein Food">
+      <div class="blog-content">
+       <a href="https://builtwithscience.com/diet/best-sources-of-protein" target="_blank"><h3>Best Sources of Protein for Fitness</h3></a>
+        <p>Plant-based and non-veg protein options that support muscle growth.</p>
+      </div>
+    </div>
+
+    <div class="blog">
+      <img src="img/img11.jpg" alt="Mental Health">
+      <div class="blog-content">
+        <a href="https://www.helpguide.org/wellness/fitness/the-mental-health-benefits-of-exercise" target="_blank"><h3>The Mental Health Benefits of Exercise</h3></a>
+        <p>Exercise releases endorphins that can improve your mood and focus.</p>
+      </div>
+    </div>
+
+    <div class="blog">
+      <img src="img/img12.jpg" alt="Diet Balance">
+      <div class="blog-content">
+        <a href="https://eattrek.com/blog/how-to-balance-food-and-exercise" target="_blank"><h3>How to Balance Diet and Exercise</h3></a>
+        <p>Achieve lasting results with the perfect mix of calories and workouts.</p>
+      </div>
+    </div>
+
+    <!-- Row 4 -->
+    <div class="blog">
+      <img src="img/img13.jpg" alt="HIIT Training">
+      <div class="blog-content">
+        <a href="https://www.aim7.com/blog/high-intensity-interval-training" target="_blank"><h3>High Intensity Interval Training (HIIT)</h3></a>
+        <p>Burn more calories in less time with fast-paced, powerful workouts.</p>
+      </div>
+    </div>
+
+    <div class="blog">
+      <img src="img/img14.jpg" alt="Running Shoes">
+      <div class="blog-content">
+        <a href="https://www.runnersworld.com/gear/a20842305/how-to-buy-the-right-running-shoes" target="_blank"><h3>Choosing the Right Running Shoes</h3></a>
+        <p>A guide to selecting shoes that protect your joints and improve comfort.</p>
+      </div>
+    </div>
+
+    <div class="blog">
+      <img src="img/img15.jpg" alt="Gym Motivation">
+      <div class="blog-content">
+        <a href="https://www.nerdfitness.com/blog/gym-etiquette-101" target="_blank"><h3>Gym Etiquette: 29 Unwritten Rules</h3></a>
+        <p>Learn the unspoken rules to make your gym experience more enjoyable.</p>
+      </div>
+    </div>
+
+    <div class="blog">
+      <img src="img/img16.jpg" alt="Home Workout">
+      <div class="blog-content">
+        <a href="https://www.healthline.com/health/fitness-exercise/at-home-workouts" target="_blank"><h3>30 Moves to Make the Most of Your At-Home Workout</h3></a>
+        <p>Stay fit using bodyweight exercises you can do anywhere, anytime.</p>
+      </div>
+    </div>
+  </section>
+  <script>
+    fetch('header.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('header').innerHTML = data;
+      });
+  </script>
+</body>
+</html>
