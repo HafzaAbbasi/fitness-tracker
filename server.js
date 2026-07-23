@@ -15,6 +15,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public"))); // Serve HTML files
 
+
+app.get("/", (req, res) => {
+  res.redirect("/register.html");
+});
 // ✅ Session setup
 const MySQLStore = require('express-mysql-session')(session);
 const sessionStore = new MySQLStore({
