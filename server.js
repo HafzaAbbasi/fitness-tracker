@@ -24,13 +24,13 @@ app.get("/", (req, res) => {
 const MySQLStore = require('express-mysql-session')(session);
 const sessionStore = new MySQLStore({
   host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: process.env.DB_PORT,
-  ssl: { minVersion: "TLSv1.2", rejectUnauthorized: true }
-}, db);
-
+  ssl: { minVersion: "TLSv1.2", rejectUnauthorized: true },
+  createDatabaseTable: false
+});
 app.use(session({
   store: sessionStore,
   secret: process.env.SESSION_SECRET,
