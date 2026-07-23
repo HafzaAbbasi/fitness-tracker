@@ -26,14 +26,6 @@ app.use(session({
   }
 }));
 
-// =================== MYSQL CONNECTION ===================
-// const db = mysql.createConnection({
-//   host: process.env.DB_HOST,
-//   user: process.env.DB_USER,
-//   password: process.env.DB_PASSWORD,
-//   database: process.env.DB_NAME
-// });
-
 const db = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -45,14 +37,6 @@ const db = mysql.createPool({
   connectionLimit: 10
 });
 
-// db.connect(err => {
-//   if (err) {
-//     console.error("❌ MySQL connection failed:", err);
-//     process.exit(1);
-//   }
-//   console.log("✅ Connected to MySQL");
-//   console.log("👉 Open in browser: http://localhost:3000/register.html");
-// });
 
 db.getConnection((err, connection) => {
   if (err) {
