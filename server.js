@@ -16,15 +16,24 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public"))); // Serve HTML files
 
 // ✅ Session setup
+const MySQLStore = require('express-mysql-session')(session);
+const sessionStore = new MySQLStore({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
+  ssl: { minVersion: "TLSv1.2", rejectUnauthorized: true }
+});
+
 app.use(session({
+  store: sessionStore,
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: {
-    secure: process.env.NODE_ENV === "production", // only send cookie over HTTPS
-    httpOnly: true
-  }
+  cookie: { secure: process.env.NODE_ENV === "production", httpOnly: true }
 }));
+
 
 const db = mysql.createPool({
   host: process.env.DB_HOST,
