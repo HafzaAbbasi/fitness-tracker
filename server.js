@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
   res.redirect("/register.html");
 });
 // ✅ Session setup
+
 const MySQLStore = require('express-mysql-session')(session);
 const sessionStore = new MySQLStore({
   host: process.env.DB_HOST,
@@ -28,7 +29,7 @@ const sessionStore = new MySQLStore({
   database: process.env.DB_NAME,
   port: process.env.DB_PORT,
   ssl: { minVersion: "TLSv1.2", rejectUnauthorized: true }
-});
+}, db);
 
 app.use(session({
   store: sessionStore,
