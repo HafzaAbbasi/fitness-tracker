@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -226,6 +226,277 @@
       };try {
         const res = await fetch("/getPlan", {
           method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        planBox.style.display = "flex";
+        formContainer.style.display = "none"; // hide form after submission
+        if (result.success) {
+          planBox.innerHTML = `
+            <h2 style="color:#0f9d58; text-alignment:center">Plan</h2>
+            <h3>Exercises:</h3><p>${result.exercises}</p>
+            <h3>Duration:</h3><p>${result.duration}</p>
+            <h3>Diet Plan:</h3><p>${result.diet_plan}</p>
+            <p style="color:green;">${result.message}</p>
+            <p style="color:blue;">${result.replaceMessage || ""}</p>
+          `;
+        } else {
+          planBox.innerHTML = `<p style="color:red;">${result.message}</p>`;
+        }
+      } catch (err) {
+        console.error(err);
+        planBox.innerHTML = `<p style="color:red;">❌ Error fetching plan</p>`;
+      }
+    });
+
+    // Load header
+    fetch('header.html')
+      .then(res => res.text())
+      .then(data => { document.getElementById('header').innerHTML = data; });
+
+    // Custom age validation
+    const ageInput = document.getElementById('age');
+    ageInput.addEventListener('input', function () {
+      if (this.validity.rangeUnderflow) this.setCustomValidity('Age must be 18 or above!');
+      else if (this.validity.rangeOverflow) this.setCustomValidity('Age must not exceed 70!');
+      else this.setCustomValidity('');
+    });
+  </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workout & Diet Form</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #0f9d58, #34a853);
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding-top: 100px;
+    }
+    .main-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin: 0 20px;
+    }
+    .container, #planResult {
+      background: white;
+      width: 550px;
+      min-height: 550px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      padding: 30px;
+      box-sizing: border-box;
+    }
+    h2 { color: #0f9d58; text-align: center; margin-bottom: 20px; }
+    label { display: block; text-align: left; font-weight: bold; color: #333; margin-top: 10px; }
+    input, select {
+      width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc;
+      border-radius: 6px; outline: none; transition: border-color 0.3s;
+    }
+    input:focus, select:focus { border-color: #0f9d58; }
+    button {
+      background-color: #0f9d58; color: white; border: none; width: 100%;
+      padding: 10px; margin-top: 20px; border-radius: 6px; cursor: pointer;
+      font-size: 16px; transition: background-color 0.3s;
+    }
+    button:hover { background-color: #0b7f46; }
+    #planResult {
+      border-left: 6px solid #0f9d58;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      animation: fadeIn 0.5s ease-in-out;
+      display: none;
+      font-size: clamp(14px, 1.5vw, 18px);
+      color: #333;
+    }
+    #planResult h3 { color: #0f9d58; margin-bottom: 5px; font-size: clamp(16px, 1.8vw, 20px); }
+    #planResult p { margin-bottom: 12px; line-height: 1.5; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 900px) {
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .container, #planResult {
+    width: 90%;
+  }
+}
+
+/* Match header's stacking breakpoint */
+@media (max-width: 1024px) {
+  body {
+    padding-top: 110px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 170px; /* header stacks + nav wraps here */
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 160px; /* slightly smaller text = slightly less height */
+  }
+}
+  </style>
+</head>
+<body>
+  <div id="header"></div>
+
+  <div class="main-container">
+    <div class="container" id="formContainer">
+      <h2>Personalized Workout & Diet Plan</h2>
+      <form id="dietForm">
+        <label>Name:</label>
+        <input type="text" name="name" required>
+        <label>Gender:</label>
+        <select name="gender" required>
+          <option value="">Select</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+        <label>Age:</label>
+        <input type="number" id="age" name="age" required min="18" max="70" title="age should be between 18 to 70">
+        <label>Workout Goal:</label>
+        <select name="workout_goal" required>
+          <option value="">Select</option>
+          <option value="Weight Loss">Weight Loss</option>
+          <option value="Muscle Building">Muscle Building</option>
+          <option value="Body Toning">Body Toning</option>
+          <option value="Mental Health">Mental Health</option>
+          <option value="Improve Fitness">Improve Fitness</option>
+        </select>
+        <label>Food Allergy (if any):</label>
+        <input type="text" name="food_allergy" placeholder="e.g. nuts, milk">
+        <button type="submit">Get Plan</button>
+      </form>
+    </div>
+
+    <div id="planResult"></div>
+  </div>
+
+  <script>
+    const formContainer = document.getElementById("formContainer");
+    const planBox = document.getElementById("planResult");
+
+    // ✅ Check if user already has a diet plan
+    async function checkExistingDiet() {
+      try {
+        const res = await fetch("/checkDiet", {
+          credentials: "include"
+        });
+        const data = await res.json();
+        if (data.exists) {
+          formContainer.style.display = "none";
+          planBox.style.display = "flex";
+          formContainer.innerHTML = ""; // hide main form area for now
+
+          planBox.innerHTML = `
+  <div style="width:100%;">
+    <div style="padding:15px; border:1px solid #0f9d58; border-radius:10px; background:white;">
+      <h3 style="color:#0f9d58;">Previous Plan – ${data.dietPlan.workout_goal}</h3>
+      <p><strong>Exercises:</strong> ${data.dietPlan.exercises}</p>
+      <p><strong>Duration:</strong> ${data.dietPlan.duration}</p>
+      <p><strong>Diet Plan:</strong> ${data.dietPlan.diet_plan}</p>
+    </div>
+  </div>
+
+  <div style="align-self:flex-end; margin-top:10px;">
+    <button id="openUpdateForm"
+      style="background:#0f9d58; color:white; padding:10px 15px; border:none; border-radius:6px; cursor:pointer;">
+      Update Plan
+    </button>
+  </div>
+
+  <div id="updateFormContainer" style="width:100%; margin-top:15px; display:none;"></div>
+`;
+
+          const updateFormContainer = document.getElementById("updateFormContainer");
+
+          document.getElementById("openUpdateForm").addEventListener("click", () => {
+            updateFormContainer.style.display = "block";
+            updateFormContainer.innerHTML = `
+      <form id="updateForm">
+        <label><strong>New Workout Goal:</strong></label>
+        <select name="workout_goal" required style="padding:10px; width:100%; border-radius:6px; border:1px solid #ccc;">
+          <option value="">Select</option>
+          <option value="Weight Loss">Weight Loss</option>
+          <option value="Muscle Building">Muscle Building</option>
+          <option value="Body Toning">Body Toning</option>
+          <option value="Mental Health">Mental Health</option>
+          <option value="Improve Fitness">Improve Fitness</option>
+        </select>
+        <button type="submit" style="margin-top:10px; width:100%; background:#0f9d58; color:white; padding:10px; border:none; border-radius:6px; cursor:pointer;">
+          Get New Plan
+        </button>
+      </form>
+    `;
+          });
+
+          document.addEventListener("submit", async function(e) {
+            if (e.target && e.target.id === "updateForm") {
+              e.preventDefault();
+              const workout_goal = e.target.workout_goal.value;
+
+              const res = await fetch("/getPlanAgain", {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ workout_goal })
+              });
+
+              const result = await res.json();
+
+              planBox.innerHTML = `
+        <div style="padding:15px; border:1px solid #0f9d58; border-radius:10px; background:white;">
+          <h3 style="color:#0f9d58;">New Plan - ${result.workout_goal}</h3>
+          <p><strong>Exercises:</strong> ${result.exercises}</p>
+          <p><strong>Duration:</strong> ${result.duration}</p>
+          <p><strong>Diet Plan:</strong> ${result.diet_plan}</p>
+          <p style="color:green;">${result.message}</p>
+        </div>
+      `;
+            }
+          });
+        }
+
+      } catch (err) {
+        console.error("Error checking diet plan:", err);
+      }
+    }
+
+    checkExistingDiet();
+
+    // Submit new diet plan
+    document.getElementById("dietForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        name: form.name.value,
+        gender: form.gender.value,
+        age: form.age.value,
+        workout_goal: form.workout_goal.value,
+        food_allergy: form.food_allergy.value
+      };
+      try {
+        const res = await fetch("/getPlan", {
+          method: "POST",
+          credentials: "include",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data)
         });

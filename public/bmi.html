@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -109,6 +109,143 @@
 
       const response = await fetch("/calculateBMI", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, height, weight })
+      });
+
+      const data = await response.json();
+      const resultBox = document.getElementById("result");
+
+      if (data.success) {
+        resultBox.innerHTML = `✅ BMI: ${data.bmi.toFixed(2)} (${data.status})`;
+        resultBox.style.color = "#0f9d58";
+      } else {
+        resultBox.innerHTML = `❌ ${data.message}`;
+        resultBox.style.color = "red";
+      }
+    });
+
+    // Load header
+    fetch('header.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('header').innerHTML = data;
+      });
+  </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMI Calculator</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0f9d58, #34a853);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding-top: 80px;
+    }
+
+    .bmi-container {
+      background: #ffffff;
+      padding: 30px 35px;
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      color: #333;
+    }
+
+    h2 {
+      color: #0f9d58;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    }
+
+    input {
+      width: 90%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus {
+      border-color: #0f9d58;
+      outline: none;
+      box-shadow: 0 0 8px rgba(15, 157, 88, 0.4);
+    }
+
+    button {
+      width: 90%;
+      padding: 12px;
+      margin-top: 12px;
+      background: #0f9d58;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background: #0b7f46;
+    }
+
+    #result {
+      margin-top: 18px;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #0f9d58;
+    }
+
+    @media (max-width: 500px) {
+      .bmi-container {
+        width: 90%;
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="header"></div>
+
+  <div class="bmi-container">
+    <h2>Body Mass Index (BMI)</h2>
+    <form id="bmiForm">
+      <input type="email" id="email" placeholder="Enter your email" required>
+      <input type="text" id="height" placeholder="Height (meters e.g., 1.68 or 5'6&quot;)" required>
+      <input type="number" id="weight" placeholder="Weight (in kg)" step="0.1" required>
+      <button type="submit">Calculate BMI</button>
+    </form>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    document.getElementById("bmiForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim().toLowerCase();
+      const height = document.getElementById("height").value.trim();
+      const weight = parseFloat(document.getElementById("weight").value);
+
+      const response = await fetch("/calculateBMI", {
+        method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, height, weight })
       });

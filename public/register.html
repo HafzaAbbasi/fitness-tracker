@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -10,6 +10,102 @@
 <body>
   <body>
     
+<h1 class="main-heading">Welcome to Fitness Tracker</h1>
+  <div class="container">
+  
+    <!-- Left: form 
+    <div class="form-box">
+      <h2 id="form-title">Sign Up</h2>
+      <form id="userForm" autocomplete="off" >
+        <div id="nameField">
+          <label>Name:</label>
+          <input type="text" id="name" name="name" placeholder="Enter your name" autocomplete="off">
+        </div>
+        <label>Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required autocomplete="off">
+
+    <label>Password:</label>
+<input type="password" id="password" name="password" 
+  placeholder="atleast 5 characters with special character " 
+  pattern="^(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{5}$" 
+  title="Password must be exactly 5 characters long and include at least one special character (!@#$%^&*)" 
+  required autocomplete="new-password">
+        <input type="submit" id="submitBtn" value="Sign Up">
+      </form>
+      <div class="switch-buttons">
+        <button onclick="switchToSignup()">Sign Up</button>
+        <button onclick="switchToLogin()">Login</button>
+      </div>
+    </div> -->
+
+    <!-- Right: 3-column image layout -->
+    <!-- <div class="image-section">
+      <img src="img/img4.jpg" alt="">
+      <img src="img/walk.jpeg" alt="">
+      <img src="img/man.jpeg" alt="">
+      <img src="img/food.jpeg" alt="">
+      <img src="img/img2.jpg" alt="">
+    </div>
+  </div>
+
+  <script>
+    let mode = "signup";
+    window.onload = () => {
+      document.getElementById("userForm").reset();
+    };
+    function switchToSignup() {
+      mode = "signup";
+      document.getElementById("form-title").innerText = "Sign Up";
+      document.getElementById("nameField").style.display = "block";
+      document.getElementById("submitBtn").value = "Sign Up";
+    }
+    function switchToLogin() {
+      mode = "login";
+      document.getElementById("form-title").innerText = "Login";
+      document.getElementById("nameField").style.display = "none";
+      document.getElementById("submitBtn").value = "Login";
+    }
+    document.getElementById("userForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name")?.value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const url = mode === "signup" ? "/signup" : "/login";
+      const data = mode === "signup" ? { name, email, password } : { email, password };
+      try {
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+        alert(result.message);
+        if (result.success) window.location.href = "dietForm.html";
+      } catch {
+        alert(" Error connecting to server");
+      }
+    });
+   if (result.success) {
+  document.getElementById("userForm").reset();
+  window.location.href = "dietForm.html";
+}
+
+
+  </script>
+
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fitness Tracker | Login & Signup</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
 <h1 class="main-heading">Welcome to Fitness Tracker</h1>
   <div class="container">
   
@@ -75,23 +171,21 @@
       try {
         const res = await fetch(url, {
           method: "POST",
+          credentials: "include",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data)
         });
 
         const result = await res.json();
         alert(result.message);
-        if (result.success) window.location.href = "dietForm.html";
+        if (result.success) {
+          document.getElementById("userForm").reset();
+          window.location.href = "dietForm.html";
+        }
       } catch {
         alert(" Error connecting to server");
       }
     });
-   if (result.success) {
-  document.getElementById("userForm").reset();
-  window.location.href = "dietForm.html";
-}
-
-
   </script>
 
 </body>
