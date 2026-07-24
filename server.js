@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
   res.redirect("/register.html");
 });
 
-// ✅ Session setup (in-memory, fine on Bonto's always-on server)
+// Session setup 
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
