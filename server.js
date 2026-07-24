@@ -364,6 +364,10 @@ const session = require("express-session");
 
 const app = express();
 app.set('trust proxy', 1);   // ← add this line
+console.log("SESSION_SECRET exists:", !!process.env.SESSION_SECRET);
+console.log("SESSION_SECRET length:", process.env.SESSION_SECRET ? process.env.SESSION_SECRET.length : 0);
+
+
 const SPOON_KEY = process.env.SPOON_KEY;
 
 // =================== MIDDLEWARE ===================
@@ -381,8 +385,8 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    // secure: process.env.NODE_ENV === "production",
-    secure: false,
+    secure: process.env.NODE_ENV === "production",
+  
     httpOnly: true
   }
 }));
@@ -470,7 +474,7 @@ app.post("/login", async (req, res) => {
       const match = await bcrypt.compare(password, user.password);
       if (match) {
         req.session.email = email;
-
+console.log("Session ID after setting email:", req.sessionID, "| session data:", req.session);
         return res.json({
           success: true,
           message: "🔑 Login successful! Welcome back " + user.name,
