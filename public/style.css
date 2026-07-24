@@ -150,6 +150,61 @@ input[type="submit"]:hover {
   align-self: center; /* centers vertically */
 }
 
+/* ===========================================
+   LARGE TABLET / SMALL DESKTOP (≤ 1200px)
+   Still side-by-side, just tighten the huge gap
+=========================================== */
+@media (max-width: 1200px) {
+  .container {
+    gap: 60px;
+    padding: 0 30px;
+  }
+
+  .form-box {
+    width: 420px;
+    padding: 50px 40px;
+  }
+}
+
+/* ===========================================
+   TABLET (≤ 1024px)
+   Still side-by-side, shrink further, allow scroll
+=========================================== */
+@media (max-width: 1024px) {
+  body {
+    height: auto;
+    min-height: 100vh;
+    overflow: auto;
+    padding-bottom: 30px;
+  }
+
+  .main-heading {
+    font-size: 34px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .container {
+    height: auto;
+    gap: 40px;
+    padding: 0 20px;
+  }
+
+  .form-box {
+    width: 380px;
+    padding: 40px 30px;
+  }
+
+  .form-box h2 {
+    font-size: 28px;
+  }
+
+  .image-section {
+    width: 50%;
+    height: 500px;
+  }
+}
+
 /* ===== Tablet View (≤ 950px) ===== */
 @media (max-width: 950px) {
   .container {
